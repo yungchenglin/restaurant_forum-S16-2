@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+
+    <ul class="nav nav-tabs">
+      <li role="presentation">
+        <%= link_to "首頁", root_path %>
+       </li>
+      <li role="presentation" class="active">
+        <%= link_to "最新動態", feeds_restaurants_path %>
+      </li>
+      <li role="presentation" class="active">
+        <%= link_to "TOP10人氣餐廳", ranking_restaurants_path %>
+      </li>
+    </ul>
+  </div>
+</div>
+<br>
+
+    <ul class="nav nav-pills nav-pills-center">
+      <li role="presentation">
+        <%= link_to "全部餐廳", root_path %>
+      </li>
+      <% @categories.each do |category| %>
+      <li role="presentation" class="<%= "active" if category == @category %>">
+        <%= link_to category.name, category_path(category) %>
+      </li>
+        <% end %>
+    </ul>
+
+    <br>
+
+    <%= render partial: "shared/restaurant_list" %>
+      
+  </div>
+</div>

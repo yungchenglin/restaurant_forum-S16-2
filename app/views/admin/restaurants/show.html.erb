@@ -1,0 +1,13 @@
+<h1><%= @restaurant.name %></h1>
+
+
+<%= @restaurant.category.name %><br>
+Opening Hours:<%= @restaurant.opening_hours %><br>
+Tel: <%= @restaurant.tel %><br>
+Address: <%= @restaurant.address %><br>
+Description:<%= @restaurant.description %><br>
+Photo:<%= image_tag @restaurant.image, width: '600px' %>
+
+<br>
+
+<%= link_to 'Back to index', admin_restaurants_path %>

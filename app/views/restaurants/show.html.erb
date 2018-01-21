@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1><%= @restaurant.name %></h1>
+      <p>[<%= @restaurant.category.name %>]</p>
+    </div>
+
+    <div class="col-md-4">
+      <%= image_tag @restaurant.image, class: "img-responsive center-block" %>
+      <br>
+      <div class="well">
+        <ul class="list-unstyled">
+          <li><strong>Opening Hour:</strong> <%= @restaurant.opening_hours %></li>
+          <li><strong>Tel:</strong> <%= @restaurant.tel %></li>
+          <li><strong>Address:</strong> <%= @restaurant.address %></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <%= simple_format @restaurant.description %>
+    </div>
+
+    <%= link_to 'Dashboard', dashboard_restaurant_path(@restaurant), class: "btn btn-primary" %>
+    <%= render partial: "shared/favorite", locals: {restaurant: @restaurant} %>
+    <%= render partial: "shared/like", locals: {restaurant: @restaurant} %>
+    <div class="clearfix"></div>
+
+    <hr>
+
+  </div>
+</div>
+
+ <% @restaurant.comments.each do |comment| %>
+    <div>
+      <h4><%= comment.user.name %></h4>
+      <p><%= simple_format comment.content %></p>
+      <p class="text-muted">
+        <em><%= time_ago_in_words(comment.created_at)%> ago </em>
+        <% if current_user.admin? %>
+         <%= link_to "Delete", restaurant_comment_path(@restaurant, comment), method: :delete %>
+        <% end %>
+      </p>
+    </div>
+    <hr>
+    <% end %>
+
+
+<div class="container">
+  <div class="row">
+   <%= form_for [@restaurant, @comment] do |f| %>
+    <div class="form-group">
+      <%= f.text_area :content, placeholder: "留個言吧", class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.submit class: "btn btn-primary" %>
+      <%= f.button "Cancel", type: :reset, class: "btn btn-default" %>
+    </div>
+  <% end %>
+  </div>
+</div>
